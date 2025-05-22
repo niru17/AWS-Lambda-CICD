@@ -17,7 +17,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y python3.11 python3.11-venv python3-pip jq zip  
+        sudo apt-get install -y python3.10 python3.10-venv python3-pip jq zip  
         pip3 install boto3
 
     - name: Set environment variables
@@ -36,7 +36,7 @@ jobs:
     - name: Package Lambda Function
       run: |
         cd lambda_function
-        python3.11 -m venv venv
+        python3.10 -m venv venv
         source venv/bin/activate
         mkdir package
         pip install --no-cache-dir -r requirements.txt -t ./package
@@ -63,7 +63,7 @@ jobs:
           echo "Creating Lambda function $FUNCTION_NAME..."
           aws lambda create-function \
             --function-name $FUNCTION_NAME \
-            --runtime python3.11 \
+            --runtime python3.10 \
             --role arn:aws:iam::851725546734:role/Lambda_cicd \   
             --handler app.lambda_handler \
             --timeout 300 \
